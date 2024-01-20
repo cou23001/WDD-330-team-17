@@ -22,7 +22,7 @@ export function setClick(selector, callback) {
   qs(selector).addEventListener('click', callback);
 }
 
-export function getParams(param) {
+export function getParam(param) {
   const queryString = window.location.search;
   const urlParams = new URLSearchParams(queryString); 
   
@@ -30,4 +30,21 @@ export function getParams(param) {
 
   return product;
 
+}
+
+// function to take a list of objects and a template and insert the objects as HTML into the DOM
+
+export function renderListWithTemplate(
+  templateFn,
+  parentElement,
+  list,
+  position = "afterbegin",
+  clear = false
+) {
+  const htmlStrings = list.map(templateFn);
+  // if clear is true we need to clear out the contents of the parent.
+  if (clear) {
+    parentElement.innerHTML = "";
+  }
+  parentElement.insertAdjacentHTML(position, htmlStrings.join(""));
 }
