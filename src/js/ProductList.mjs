@@ -21,9 +21,13 @@ export default class ProductList {
     }
     async init() {
         const list = await this.dataSource.getData();
-        this.renderList(list);
+        console.log('list->',list);
+        this.renderList(list.filter(this.filterById));
     }
     renderList(list) {
         renderListWithTemplate(productCardTemplate,this.listElement,list);
+    }
+    filterById(element) {
+        return element.Id != '989CG' && element.Id != '880RT';
     }
 }
