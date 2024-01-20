@@ -26,6 +26,7 @@ export default class ProductList {
     renderList(list) {
         renderListWithTemplate(productCardTemplate,this.listElement,list);
     }
+    // remove elements without image
     filterById(element) {
         return element.Id != '989CG' && element.Id != '880RT';
     }
