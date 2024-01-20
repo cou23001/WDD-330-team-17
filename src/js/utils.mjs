@@ -38,3 +38,10 @@ export function getParams(param) {
   return product;
 
 }
+export function calculateTotal(products) {
+  let total = 0;
+  products.forEach(element => {
+    total += element.FinalPrice;
+  });
+  return total;
+}
