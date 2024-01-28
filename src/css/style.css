@@ -237,3 +237,36 @@ footer {
   font-size: var(--small-font);
   padding: 1em;
 }
+
+/* Product listing page */
+
+#categories-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+  gap: 20px;
+  max-width: 600px;
+  margin: 50px auto;
+}
+
+#categories-grid a {
+  
+  cursor: pointer;
+}
+
+a.category p {
+  margin: 0 auto;
+  text-align: center;
+  font-weight: bold;
+  font-size: .8em;
+  margin-top: 10px;
+}
+
+a.category img {
+  display: block;
+  width: 80%;
+  margin: 0 auto;
+}
+
+.title {
+  text-transform: capitalize;
+}

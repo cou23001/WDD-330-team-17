@@ -2,9 +2,9 @@ import { renderListWithTemplate } from './utils.mjs';
 
 function productCardTemplate(product) {
     return `<li class="product-card">
-    <a href="product_pages/index.html?product=${product.Id}">
+    <a href="../product_pages/index.html?product=${product.Id}">
       <img
-        src="${product.Image}"
+        src="${product.Images.PrimaryMedium}"
         alt="Image of ${product.NameWithoutBrand}"
       />
       <h3 class="card__brand">${product.Brand.Name}</h3>
@@ -20,23 +20,23 @@ export default class ProductListing {
         this.listElement = listElement;
     }
     async init() {
-        const productList = await this.dataSource.getData();
-
-        // filter list to only display four tents
-        const filteredList = this.filterList(productList);
+        const productList = await this.dataSource.getData(this.category);
+        //console.log(productList);
 
         // render list and display it
-        this.renderList(filteredList);
+        this.renderList(productList);
+
+        document.querySelector('.title').innerHTML = this.category;
     }
     renderList(productList) {
         // render the list using the renderListWithTemplate function from the utils.mjs module
         renderListWithTemplate(productCardTemplate, this.listElement, productList);
     }
-    filterList(list) {
+    // filterList(list) {
         
-        const filteredList = list.filter((item) => 
-            item.Id == '880RR' || item.Id == '985RF' || item.Id == '985PR' || item.Id == '344YJ');
+    //     const filteredList = list.filter((item) => 
+    //         item.Id == '880RR' || item.Id == '985RF' || item.Id == '985PR' || item.Id == '344YJ');
 
-        return filteredList;
-    }
+    //     return filteredList;
+    // }
 }
