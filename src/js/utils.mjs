@@ -64,7 +64,7 @@ export async function loadHeaderFooter() {
 export function calculateTotal(products) {
   let total = 0;
   products.forEach(element => {
-    total += element.FinalPrice;
+    total += element.quantity * element.FinalPrice;
   });
   return total;
 
