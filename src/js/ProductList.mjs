@@ -36,6 +36,14 @@ export default class ProductList {
     //set the title to the current category
     document.querySelector('.title').innerHTML = this.category;
   }
+  isOrderByName() {
+    this.organizeByName = true;
+    this.organizeByPrice = false;
+  }
+  isOrderByPrice() {
+    this.organizeByPrice = true;
+    this.organizeByName = false;
+  }
   sortByName(list) {
     return list.sort((a, b) => {
       if (a.Name > b.Name) {
