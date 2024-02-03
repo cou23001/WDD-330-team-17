@@ -85,7 +85,7 @@ header {
   margin-top: -1.3em;
 }
 
-.logo--square>div {
+.logo--square > div {
   margin-top: -1.7em;
 }
 
@@ -160,7 +160,7 @@ button {
   padding-left: 0;
 }
 
-.product-grid>li {
+.product-grid > li {
   width: 150px;
   /* border: 1px solid var(--light-grey); */
   padding: 0.5em;
@@ -419,7 +419,7 @@ marquee {
 }
 
 #category-radio label {
-  font-size: .6em;
+  font-size: 0.6em;
   margin-top: 5px;
 }
 
