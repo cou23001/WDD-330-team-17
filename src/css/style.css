@@ -427,3 +427,46 @@ marquee {
   font-size: 1em;
   border-radius: 5px;
 }
+
+/* alert styles */
+.alert {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.5em;
+  background-color: var(--primary-color);
+  border: 1px solid rgb(188, 83, 30);
+}
+.alert > p {
+  margin: 0;
+}
+
+#close-alert {
+  cursor: pointer;
+}
+
+/* checkout styles */
+.checkout {
+  padding: 0.5em;
+}
+.checkout label {
+  display: block;
+}
+.checkout input {
+  width: 100%;
+  font-size: 1.2em;
+}
+
+.checkout-summary > ul {
+  padding-left: 0;
+  list-style-type: none;
+}
+.checkout-summary li {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.checkout-summary input {
+  width: 25%;
+  font-size: 1em;
+}

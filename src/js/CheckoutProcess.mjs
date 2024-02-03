@@ -1,4 +1,4 @@
-import { getLocalStorage } from './utils'; 
+import { getLocalStorage, alertMessage, removeAllAlerts } from './utils'; 
 import ExternalServices from "./ExternalServices.mjs";
 
 const services = new ExternalServices();
@@ -54,7 +54,7 @@ export default class CheckoutProcess {
         // calculate the total of all the items in the cart
         const amounts = this.list.map((item) => item.FinalPrice * item.quantity);
         this.itemTotal = amounts.reduce((sum, item) => sum + item);
-        summaryElement.innerText = "$" + this.itemTotal;
+        summaryElement.innerText = "$" + this.itemTotal.toFixed(2);
     }
 
     calculateOrderTotal() {
@@ -82,34 +82,30 @@ export default class CheckoutProcess {
 
     async checkout(form) {
         const formElement = document.forms["checkout"];
-        const orderPlacementMessage = document.getElementById('orderPlacementMessage');
 
         const json = formDataToJSON(formElement);
+
         // add totals, and item details
         json.orderDate = new Date();
         json.orderTotal = this.orderTotal;
         json.tax = this.tax;
         json.shipping = this.shipping;
         json.items = packageItems(this.list);
-        //console.log(json);
+        
         try {
             const res = await services.checkout(json);
-            console.log(res);
-            // Display the success message
-            //orderPlacementMessage.innerHTML = `<p>${res.message}</p><p>Your order ID is: ${res.orderId}</p>`;
-            orderPlacementMessage.className = "success-message";
-            orderPlacementMessage.innerHTML = `<p>${res.message} Successfully! Your order ID is: ${res.orderId}</p>`;
-
-            // Hide the form and order summary, but keep the rest of the content visible
-            formElement.style.display = 'none';
-            document.querySelector('.checkout-summary').style.display = 'none';
-
+  
             // Clear the cart from local storage
             localStorage.removeItem('so-cart');  
+
+            location.assign("./success.html");
+
         } catch (err) {
+            removeAllAlerts();
             console.log(err);
-            orderPlacementMessage.className = "error-message";
-            orderPlacementMessage.innerHTML = `<p>There was an error placing the order</p>`;
+            for (let message in err.message) {
+              alertMessage(err.message[message]);
+            }
         }
     }
 }

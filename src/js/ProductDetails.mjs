@@ -1,4 +1,4 @@
-import { setLocalStorage, getLocalStorage } from "./utils.mjs";
+import { setLocalStorage, getLocalStorage, alertMessage } from "./utils.mjs";
 
 function productDetailsTemplate(product) {
     
@@ -77,6 +77,9 @@ export default class ProductDetails {
 
     // Set the cart with the old products and the new product
     setLocalStorage('so-cart', myCart);
+
+    // Alert user that the product was added
+    alertMessage(`${this.product.Name} was added to your cart successfully!`)
 
     // Empty the myCart array again for future use
     myCart = [];
