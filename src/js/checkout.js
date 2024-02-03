@@ -8,8 +8,8 @@ myCheckout.init();
 
 document
   //.querySelector("input[name='zip']")
-  .querySelector("#zip")
-  .addEventListener("blur", myCheckout.calculateOrderTotal.bind(myCheckout));
+  .querySelector('#zip')
+  .addEventListener('blur', myCheckout.calculateOrderTotal.bind(myCheckout));
 
 // listening for click on the button
 document.querySelector('#checkoutSubmit').addEventListener('click', (e) => {
