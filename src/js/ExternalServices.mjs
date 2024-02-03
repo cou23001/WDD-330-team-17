@@ -6,7 +6,7 @@ function convertToJson(res) {
   if (res.ok) {
     return res.json();
   } else {
-    throw new Error("Bad Response");
+    throw new { name: 'servicesError', message: res.statusMessage };
   }
 }
 
@@ -27,12 +27,12 @@ export default class ExternalServices {
   }
   async checkout(cart) {
     const options = {
-      method: "POST",
+      method: 'POST',
       headers: {
-        "Content-Type": "application/json",
+        'Content-Type': 'application/json',
       },
       body: JSON.stringify(cart),
     };
-    return await fetch(baseURL + "checkout/", options).then(convertToJson);
+    return await fetch(baseURL + 'checkout/', options).then(convertToJson);
   }
 }

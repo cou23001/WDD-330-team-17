@@ -28,9 +28,9 @@ export function renderListWithTemplate(templateFn, parentElement, list, position
   const htmlStrings = list.map(templateFn);
   // if clear is true we need to clear out the contents of the parent.
   if (clear) {
-    parentElement.innerHTML = "";
+    parentElement.innerHTML = '';
   }
-  parentElement.insertAdjacentHTML(position, htmlStrings.join(""));
+  parentElement.insertAdjacentHTML(position, htmlStrings.join(''));
 }
 
 
@@ -51,10 +51,10 @@ async function loadTemplate(path) {
 
 // function to dynamically load the header and footer into a page
 export async function loadHeaderFooter() {
-  const headerTemplate = await loadTemplate("/partials/header.html");
-  const headerElement = document.querySelector("#main-header");
-  const footerTemplate = await loadTemplate("/partials/footer.html");
-  const footerElement = document.querySelector("#main-footer");
+  const headerTemplate = await loadTemplate('/partials/header.html');
+  const headerElement = document.querySelector('#main-header');
+  const footerTemplate = await loadTemplate('/partials/footer.html');
+  const footerElement = document.querySelector('#main-footer');
 
   // Render the header and footer
   renderWithTemplate(headerTemplate, headerElement);
@@ -70,18 +70,18 @@ export function calculateTotal(products) {
 }
 
 export function getCartCount() {
-  const count = getLocalStorage("so-cart")?.length ?? 0;
+  const count = getLocalStorage('so-cart')?.length ?? 0;
   return count;
 }
 
 export function getSummary() {
-  const items = getLocalStorage("so-cart");
+  const items = getLocalStorage('so-cart');
   //console.log(items);
   return items;
 }
 
 export function calculateOrderDetails() {
-  const products = getLocalStorage("so-cart");
+  const products = getLocalStorage('so-cart');
   // Constants
   const salesTaxRate = 0.06;
   const shippingCostFirstItem = 10;
@@ -93,7 +93,7 @@ export function calculateOrderDetails() {
 
   // Calculate Subtotal
   for (const product of products) {
-      subtotal += product.quantity * parseFloat(product.FinalPrice);
+    subtotal += product.quantity * parseFloat(product.FinalPrice);
   }
 
   // Calculate Shipping Estimate
@@ -108,10 +108,24 @@ export function calculateOrderDetails() {
 
   // Return the results
   return {
-      subtotal: subtotal.toFixed(2),
-      shippingEstimate: shippingEstimate.toFixed(2),
-      tax: tax.toFixed(2),
-      orderTotal: orderTotal.toFixed(2),
+    subtotal: subtotal.toFixed(2),
+    shippingEstimate: shippingEstimate.toFixed(2),
+    tax: tax.toFixed(2),
+    orderTotal: orderTotal.toFixed(2),
   };
 }
+export function alertMessage(message, scroll = true) {
+  const alert = document.createElement('div');
+  alert.classList.add('alert');
+  alert.innerHTML = `${message} X`;
+  alert.addEventListener('click', (e) => {
+    if (e.target.textName) {
+      main.removeChild(this);
+    }
 
+  });
+  const main = document.querySelector('main');
+  main.prepend(alert);
+  if (scroll)
+    window.scrollTo(0, 0);
+}
