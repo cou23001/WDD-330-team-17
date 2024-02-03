@@ -1,7 +1,8 @@
-import { getLocalStorage } from './utils';
-import ExternalServices from './ExternalServices.mjs';
+import { getLocalStorage, alertMessage, removeAllAlerts } from './utils';
+import ExternalServices from "./ExternalServices.mjs";
 
 const services = new ExternalServices();
+
 function formDataToJSON(formElement) {
   const formData = new FormData(formElement),
     convertedJSON = {};
@@ -15,15 +16,14 @@ function formDataToJSON(formElement) {
 
 // takes the items currently stored in the cart (localstorage) and returns them in a simplified form.
 function packageItems(items) {
-  const simplifiedItems = items.map((item) =>
-  //console.log(item);
-  ({
-    id: item.Id,
-    price: item.FinalPrice,
-    name: item.Name,
-    quantity: 1,
-  })
-  );
+  const simplifiedItems = items.map((item) => {
+    return {
+      id: item.Id,
+      price: item.FinalPrice,
+      name: item.Name,
+      quantity: 1,
+    };
+  });
   return simplifiedItems;
 }
 export default class CheckoutProcess {
@@ -50,15 +50,21 @@ export default class CheckoutProcess {
       this.outputSelector + ' #num-items'
     );
 
-    itemNumElement.innerText = this.list.length;
-    // calculate the total of all the items in the cart
+    //Calculate the total of elements in shopping cart
+    itemNumElement.innerText = this.list.reduce((sum, item) => {
+      return sum + item.quantity
+    }, 0);
+    //Calculate the total of all the items in the cart
     const amounts = this.list.map((item) => item.FinalPrice * item.quantity);
     this.itemTotal = amounts.reduce((sum, item) => sum + item);
-    summaryElement.innerText = '$' + this.itemTotal;
+    summaryElement.innerText = "$" + this.itemTotal.toFixed(2);
   }
 
   calculateOrderTotal() {
-    this.shipping = 10 + (this.list.length - 1) * 2;
+    const totalItems = this.list.reduce((sum, item) => {
+      return sum + item.quantity
+    }, 0);
+    this.shipping = 10 + (totalItems - 1) * 2;
     this.tax = (this.itemTotal * 0.06).toFixed(2);
     this.orderTotal = (
       parseFloat(this.itemTotal) +
@@ -70,19 +76,18 @@ export default class CheckoutProcess {
 
   displayOrderTotals() {
     // Display the order totals in the order summary page.
-    const shipping = document.querySelector(this.outputSelector + ' #shipping');
-    const tax = document.querySelector(this.outputSelector + ' #tax');
+    const shipping = document.querySelector(this.outputSelector + " #shipping");
+    const tax = document.querySelector(this.outputSelector + " #tax");
     const orderTotal = document.querySelector(
-      this.outputSelector + ' #orderTotal'
+      this.outputSelector + " #orderTotal"
     );
-    shipping.innerText = '$' + this.shipping;
-    tax.innerText = '$' + this.tax;
-    orderTotal.innerText = '$' + this.orderTotal;
+    shipping.innerText = "$" + this.shipping.toFixed(2);
+    tax.innerText = "$" + this.tax;
+    orderTotal.innerText = "$" + this.orderTotal;
   }
 
   async checkout(form) {
-    const formElement = document.forms['checkout'];
-    const orderPlacementMessage = document.getElementById('orderPlacementMessage');
+    const formElement = document.forms["checkout"];
 
     const json = formDataToJSON(formElement);
     // add totals, and item details
@@ -91,25 +96,19 @@ export default class CheckoutProcess {
     json.tax = this.tax;
     json.shipping = this.shipping;
     json.items = packageItems(this.list);
-    //console.log(json);
+
     try {
       const res = await services.checkout(json);
-      console.log(res);
-      // Display the success message
-      //orderPlacementMessage.innerHTML = `<p>${res.message}</p><p>Your order ID is: ${res.orderId}</p>`;
-      orderPlacementMessage.className = 'success-message';
-      orderPlacementMessage.innerHTML = `<p>${res.message} Successfully! Your order ID is: ${res.orderId}</p>`;
-
-      // Hide the form and order summary, but keep the rest of the content visible
-      formElement.style.display = 'none';
-      document.querySelector('.checkout-summary').style.display = 'none';
-
       // Clear the cart from local storage
       localStorage.removeItem('so-cart');
-    } catch (err) {
-      console.log(err);
-      orderPlacementMessage.className = 'error-message';
-      orderPlacementMessage.innerHTML = `<p>There was an error placing the order</p>`;
+      location.assign("/checkout/success.html");
+    }
+    catch (err) {
+      removeAllAlerts();
+      for (let message in err.message) {
+        alertMessage(err.message[message]);
+      }
+      //console.log(err);
     }
   }
 }

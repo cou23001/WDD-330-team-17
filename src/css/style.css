@@ -374,18 +374,36 @@ button {
   display: none;
 }
 
-.error-message {
-  color: red;
-  text-align: center;
-  background-color: white;
-  padding: 10px;
+/* alert styles */
+.alert {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.5em;
+  background-color: var(--primary-color);
+  border: 1px solid rgb(188, 83, 30);
+}
+.alert > p {
+  margin: 0;
 }
 
-.success-message {
-  color: green;
-  text-align: center;
-  background-color: white;
-  padding: 10px;
+.breadcrumb {
+  font-size: 16px;
+  margin: 10px 0;
+  margin-left: 12px;
+}
+
+.breadcrumb a {
+  text-decoration: none;
+  color: #007bff;
+}
+
+.breadcrumb a:hover {
+  text-decoration: underline;
+}
+
+.categoryLink {
+  text-transform: capitalize;
 }
 
 @media screen and (min-width: 500px) {

@@ -1,4 +1,7 @@
 import { setLocalStorage, getLocalStorage } from "./utils.mjs";
+import { alertMessage } from './utils.mjs';
+
+//console.log(alertMessage);
 
 function productDetailsTemplate(product) {
     
@@ -80,6 +83,9 @@ export default class ProductDetails {
 
     // Empty the myCart array again for future use
     myCart = [];
+
+    // Alert user that the product was added
+    alertMessage(`${this.product.Name} was added to your cart successfully!`)
   }
   renderProductDetails(selector) {
     const element = document.querySelector(selector);
