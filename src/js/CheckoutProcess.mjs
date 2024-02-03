@@ -1,4 +1,9 @@
-import { getLocalStorage } from './utils'; 
+import {
+  setLocalStorage,
+  getLocalStorage,
+  alertMessage,
+  removeAllAlerts,
+} from "./utils.mjs";
 import ExternalServices from "./ExternalServices.mjs";
 
 const services = new ExternalServices();
@@ -92,24 +97,38 @@ export default class CheckoutProcess {
         json.shipping = this.shipping;
         json.items = packageItems(this.list);
         //console.log(json);
+        // try {
+        //     const res = await services.checkout(json);
+        //     console.log(res);
+        //     // Display the success message
+        //     //orderPlacementMessage.innerHTML = `<p>${res.message}</p><p>Your order ID is: ${res.orderId}</p>`;
+        //     orderPlacementMessage.className = "success-message";
+        //     orderPlacementMessage.innerHTML = `<p>${res.message} Successfully! Your order ID is: ${res.orderId}</p>`;
+
+        //     // Hide the form and order summary, but keep the rest of the content visible
+        //     formElement.style.display = 'none';
+        //     document.querySelector('.checkout-summary').style.display = 'none';
+
+        //     // Clear the cart from local storage
+        //     localStorage.removeItem('so-cart');  
+        // } catch (err) {
+        //     console.log(err);
+        //     orderPlacementMessage.className = "error-message";
+        //     orderPlacementMessage.innerHTML = `<p>There was an error placing the order</p>`;
+        // }
         try {
-            const res = await services.checkout(json);
-            console.log(res);
-            // Display the success message
-            //orderPlacementMessage.innerHTML = `<p>${res.message}</p><p>Your order ID is: ${res.orderId}</p>`;
-            orderPlacementMessage.className = "success-message";
-            orderPlacementMessage.innerHTML = `<p>${res.message} Successfully! Your order ID is: ${res.orderId}</p>`;
-
-            // Hide the form and order summary, but keep the rest of the content visible
-            formElement.style.display = 'none';
-            document.querySelector('.checkout-summary').style.display = 'none';
-
-            // Clear the cart from local storage
-            localStorage.removeItem('so-cart');  
+          const res = await services.checkout(json);
+          console.log(res);
+          setLocalStorage("so-cart", []);
+          location.assign("/checkout/success.html");
         } catch (err) {
-            console.log(err);
-            orderPlacementMessage.className = "error-message";
-            orderPlacementMessage.innerHTML = `<p>There was an error placing the order</p>`;
+          // get rid of any preexisting alerts.
+          removeAllAlerts();
+          for (let message in err.message) {
+            alertMessage(err.message[message]);
+          }
+    
+          console.log(err);
         }
     }
 }
