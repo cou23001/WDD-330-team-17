@@ -29,20 +29,58 @@
           mission is to provide you with everything you need to do this
           comfortably at an affordable price.
         </p>
+        <div class="container">
+          <button type="submit" class="btn" onclick="openPopup()">
+            SIGNUP NEWSLETTER
+          </button>
+          <div class="popup" id="popup">
+            <form>
+              <div>
+                <p>Sleep Outside Newsletter</p>
+              </div>
+              <label for="name">Name:</label><br />
+              <input type="text" id="name" name="name" /><br />
+              <label for="email">Email:</label><br />
+              <input type="text" id="email" name="email" /><br /><br />
+            </form>
+            <button type="button" onclick="closePopup()">SUBMIT</button>
+          </div>
+        </div>
       </section>
       <section class="search-bar">
         <form id="product-search">
           <fieldset>
             <label for="product">Product: </label>
-            <input type="text" name="product" id="product"><br>
+            <input type="text" name="product" id="product" /><br />
             <div id="category-radio">
-              <input type="radio" id="tents" name="category" value="tents" checked>
-              <label for="tents">Tents</label><br>
-              <input type="radio" id="backpacks" name="category" value="backpacks">
-              <label for="backpacks">Backpacks</label><br>
-              <input type="radio" id="sleeping-bags" name="category" value="sleeping-bags">
+              <input
+                type="radio"
+                id="tents"
+                name="category"
+                value="tents"
+                checked
+              />
+              <label for="tents">Tents</label><br />
+              <input
+                type="radio"
+                id="backpacks"
+                name="category"
+                value="backpacks"
+              />
+              <label for="backpacks">Backpacks</label><br />
+              <input
+                type="radio"
+                id="sleeping-bags"
+                name="category"
+                value="sleeping-bags"
+              />
               <label for="sleeping-bags">Sleeping Bags</label>
-              <input type="radio" id="hammocks" name="category" value="hammocks">
+              <input
+                type="radio"
+                id="hammocks"
+                name="category"
+                value="hammocks"
+              />
               <label for="hammocks">Hammocks</label>
             </div>
           </fieldset>
@@ -91,6 +129,16 @@
       </section>
     </main>
     <footer id="main-footer"></footer>
-    
+    <script>
+      let popup = document.getElementById('popup');
+
+      function openPopup() {
+        popup.classList.add('open-popup');
+      }
+
+      function closePopup() {
+        popup.classList.remove('open-popup');
+      }
+    </script>
   </body>
 </html>
