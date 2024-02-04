@@ -1,38 +1,33 @@
 <!DOCTYPE html>
 <html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Sleep Outside | Product Listing</title>
+    <link rel="stylesheet" href="/css/style.css" />
+    <script src="../js/product-listing.js" type="module"></script>
+  </head>
 
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Sleep Outside | Product Listing</title>
-  <link rel="stylesheet" href="/css/style.css" />
-  <script src="../js/product-listing.js" type="module"></script>
-</head>
+  <body>
+    <header class="divider" id="main-header"></header>
+    <!-- The Breadcrumb -->
+    <nav class="breadcrumb" id="categoryBreadcrumb">
+      <a href="/">Home</a> > <span id="categoryLink">Categories</span> >
+      <span id="qtyItems">Qty</span>
+    </nav>
+    <main class="divider">
+      <section class="products">
+        <div class="list-title">
+          <h2>Top Products <span class="title"></span></h2>
+          <select class="controls">
+            <option value="name" selected>Name</option>
+            <option value="price">Price</option>
+          </select>
+        </div>
 
-<body>
-  <header class="divider" id="main-header">
-
-
-  </header>
-  <!-- The Breadcrumb -->
-  <nav class="breadcrumb" id="categoryBreadcrumb">
-    <a href="/">Home</a> > <span id="categoryLink">Categories</span> > <span id="qtyItems">Qty</span>
-  </nav>
-  <main class="divider">
-    <section class="products">
-      <div class="list-title">
-        <h2>Top Products <span class="title"></span></h2>
-        <select class="controls">
-          <option value="name" selected>Name</option>
-          <option value="price">Price</option>
-        </select>
-      </div>
-
-
-      <ul class="product-list"></ul>
-    </section>
-  </main>
-  <footer id="main-footer"></footer>
-</body>
-
+        <ul class="product-list"></ul>
+      </section>
+    </main>
+    <footer id="main-footer"></footer>
+  </body>
 </html>

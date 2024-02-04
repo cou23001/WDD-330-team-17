@@ -13,7 +13,6 @@ const orderControls = document.querySelector('.controls');
 const dataSource = new ExternalServices();
 const listing = new ProductList(category, dataSource, element);
 if (product === '' || product === null) {
-
   listing.init();
 } else {
   listing.productsByName(product);
@@ -27,8 +26,7 @@ alert.init();
 orderControls.addEventListener('change', (e) => {
   if (e.target.value == 'price') {
     listing.isOrderByPrice();
-  }
-  else {
+  } else {
     listing.isOrderByName();
   }
   listing.init();

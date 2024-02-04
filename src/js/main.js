@@ -30,6 +30,6 @@ document.addEventListener('DOMContentLoaded', function () {
 
       // const listing = new ProductList(selectedCategory, dataSource, element);
       // listing.productsByName(query);
-
-    })
+    });
   }
+});
